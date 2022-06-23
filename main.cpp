@@ -2,6 +2,41 @@
 
 using namespace std;
 
+void bubbleSort(int* arr, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = i+1; j < size; j++)
+		{
+			if (arr[i] > arr[j])
+			{
+				int tmp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = tmp;
+			}
+		}
+	}
+}
+
+void combinedBubbleSort(int* arr, int size)
+{
+	bool bit;
+	do
+	{
+		bit = false;
+		for (int i = 0; i < size - 1; i++)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				int tmp = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = tmp;
+				bit = true;
+			}
+		}
+	} while (bit);
+}
+
 void insertionSort(int* arr, int size)
 {
 	for (int i = 1; i < size; i++)
@@ -13,11 +48,6 @@ void insertionSort(int* arr, int size)
 			arr[j] = tmp;
 		}
 	}
-}
-
-void shellSort()
-{
- 
 }
 
 
@@ -34,7 +64,7 @@ int main()
 		cout << arr[i] << " ";
 	}
 	cout << endl;
-	insertionSort(arr, size);
+	combinedBubbleSort(arr, size);
 	for (size_t i = 0; i < size; i++)
 	{
 		cout << arr[i] << " ";
