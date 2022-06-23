@@ -1,6 +1,16 @@
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
+
+void output(int* arr, int size)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << "\n\n";
+}
 
 void bubbleSort(int* arr, int size)
 {
@@ -71,23 +81,59 @@ void selectionSort(int* arr, int size)
 	}
 }
 
+void heapify(int* arr, int size, int index)
+{
+	int largest = index;
+	int left = index * 2 + 1;
+	int right = index * 2 + 2;
+	if (left < size && arr[left] > arr[largest])
+	{
+		largest = left;
+	}
+	if (right < size && arr[right] > arr[largest])
+	{
+		largest = right;
+	}
+	if (largest != index)
+	{
+		int tmp = arr[largest];
+		arr[largest] = arr[index];
+		arr[index] = tmp;
+		heapify(arr, size, largest);
+	}
+}
+
+void heapSort(int* arr, int size)
+{
+	for (int i = size / 2 - 1; i >= 0; i--)
+	{
+		heapify(arr, size, i);
+		Sleep(500);
+		system("cls");
+		output(arr, size);
+	}
+	for (int i = size - 1; i >= 0; i--)
+	{
+		int tmp = arr[i];
+		arr[i] = arr[0];
+		arr[0] = tmp;
+		heapify(arr, i, 0);
+		Sleep(500);
+		system("cls");
+		output(arr, size);
+	}
+}
+
 int main()
 {
-	int size = 10;
+	int size = 30;
 	int* arr = new int[size];
 	for (size_t i = 0; i < size; i++)
 	{
 		arr[i] = rand() % 20;
 	}
-	for (size_t i = 0; i < size; i++)
-	{
-		cout << arr[i] << " ";
-	}
-	cout << endl;
-	selectionSort(arr, size);
-	for (size_t i = 0; i < size; i++)
-	{
-		cout << arr[i] << " ";
-	}
+	output(arr, size);
+	heapSort(arr, size);
+	output(arr, size);
 	return 0;
 }
